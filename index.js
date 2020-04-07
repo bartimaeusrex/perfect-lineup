@@ -27,6 +27,9 @@ class Team {
     this.id = id
     this.players = []
   }
+  get playerCount() {
+    return this.players.length
+  }
 }
 
 const sortIntoTeams = players => {
@@ -47,7 +50,7 @@ const sortIntoTeams = players => {
 const meetsTeamSizeReqs = players => {
   const teams = sortIntoTeams(players)
 
-  const failures = teams.filter(team => team.players.length > 2)
+  const failures = teams.filter(team => team.playerCount > 2)
 
   return failures.length === 0
 }
@@ -63,16 +66,22 @@ const positions = {
 }
 
 const meetsPositionCountReqs = players => {
+  return false
+}
 
+const meetsPlayersPerGameReqs = players => {
+  return false
 }
 
 const sortByPosition = players => {
   const positions = {}
 
   for (const player of players) {
+    // Create slot if necessary
     if (!positions[player.position]) {
       positions[player.position] = []
     }
+    // Add to slot
     positions[player.position].push(player)
   }
 
@@ -90,4 +99,6 @@ const validateLineup = (lineup) => {
 
 
 
-module.exports = { validateLineup, sortIntoTeams, meetsTeamSizeReqs }
+module.exports = {
+  validateLineup, sortIntoTeams, meetsTeamSizeReqs, meetsSalaryReqs, meetsPositionCountReqs
+}
