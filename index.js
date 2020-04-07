@@ -65,9 +65,6 @@ const positions = {
   'OF': 3,
 }
 
-const meetsPositionCountReqs = players => {
-  return false
-}
 
 const meetsPlayersPerGameReqs = players => {
   return false
@@ -89,10 +86,24 @@ const sortByPosition = players => {
 }
 
 
+const meetsPositionCountReqs = players => {
+  // Sort players by position
+  // 
+  return false
+}
+
+
+
+const meetGameCountReqs = players => {
+  return false
+}
+
+
 const validateLineup = (lineup) => {
   return meetsSalaryReqs(lineup) &&
     meetsTeamSizeReqs(lineup) &&
-    meetsPositionCountReqs(lineup)
+    meetsPositionCountReqs(lineup) &&
+    meetGameCountReqs(lineup)
 }
 
 
@@ -100,5 +111,5 @@ const validateLineup = (lineup) => {
 
 
 module.exports = {
-  validateLineup, sortIntoTeams, meetsTeamSizeReqs, meetsSalaryReqs, meetsPositionCountReqs
+  validateLineup, sortIntoTeams, meetsTeamSizeReqs, meetsSalaryReqs, meetsPositionCountReqs, meetGameCountReqs
 }

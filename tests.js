@@ -1,8 +1,51 @@
 const expect = require('chai').expect
 const { describe, it } = require('mocha')
 const {
-  validateLineup, sortIntoTeams, meetsTeamSizeReqs, meetsSalaryReqs, meetsPositionCountReqs
+  validateLineup, sortIntoTeams, meetsTeamSizeReqs, meetsSalaryReqs, meetsPositionCountReqs, meetGameCountReqs
 } = require('./index')
+
+
+describe('meetsGameCountReqs', () => {
+  it('passes with 3 in the same game', () => {
+    const lineup = [
+      {
+        id: 1, name: 'Chris Sale', position: 'OF', teamId: 12, gameId: 123, salary: 900
+      },
+      {
+        id: 2, name: 'Yadier Molina', position: 'OF', teamId: 12, gameId: 123, salary: 200
+      },
+      {
+        id: 3, name: 'Luke Voit', position: 'OF', teamId: 12, gameId: 123, salary: 800
+      },
+    ]
+    const result = meetGameCountReqs(lineup)
+
+    expect(result).to.equal(true)
+  })
+
+  it('fails with 4 in the same game', () => {
+    const lineup = [
+      {
+        id: 1, name: 'Chris Sale', position: 'OF', teamId: 12, gameId: 123, salary: 900
+      },
+      {
+        id: 2, name: 'Yadier Molina', position: 'OF', teamId: 12, gameId: 123, salary: 200
+      },
+      {
+        id: 3, name: 'Luke Voit', position: 'OF', teamId: 12, gameId: 123, salary: 800
+      },
+      {
+        id: 4, name: 'Joe Voit', position: 'OF', teamId: 12, gameId: 123, salary: 800
+      },
+    ]
+    const result = meetGameCountReqs(lineup)
+
+    expect(result).to.equal(false)
+  })
+
+
+})
+
 
 
 describe('meetsPositionCountReqs', () => {
