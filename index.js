@@ -6,10 +6,6 @@
 // ...    and   <= 3 players from the same game
 // Total team salary <= 45000
 //
-// Returns TRUE if all requirements are met, otherwise false.
-//
-// const lineup = [{id: 1, name: 'Chris Sale', position: 'P', teamId: 12, gameId: 123, salary: 9500}, {}, {} ]
-//
 //
 
 const meetsSalaryReqs = (players) => {
@@ -23,12 +19,16 @@ const meetsSalaryReqs = (players) => {
 }
 
 class Team {
-  constructor(id) {
+  constructor(id, game) {
     this.id = id
     this.players = []
+    this.game = game
   }
   get playerCount() {
     return this.players.length
+  }
+  get gameId() {
+    return this.game
   }
 }
 
@@ -55,19 +55,19 @@ const meetsTeamSizeReqs = players => {
   return failures.length === 0
 }
 
-const positions = {
-  'P': 1,
-  'C': 1,
-  '1B': 1,
-  '2B': 1,
-  '3B': 1,
-  'SS': 1,
-  'OF': 3,
-}
+// const positions = {
+//   'P': 1,
+//   'C': 1,
+//   '1B': 1,
+//   '2B': 1,
+//   '3B': 1,
+//   'SS': 1,
+//   'OF': 3,
+// }
 
 
 const meetsPlayersPerGameReqs = players => {
-  return false
+
 }
 
 const sortByPosition = players => {
@@ -99,17 +99,16 @@ const meetGameCountReqs = players => {
 }
 
 
-const validateLineup = (lineup) => {
-  return meetsSalaryReqs(lineup) &&
+const validateLineup = (lineup) => meetsSalaryReqs(lineup) &&
     meetsTeamSizeReqs(lineup) &&
     meetsPositionCountReqs(lineup) &&
     meetGameCountReqs(lineup)
-}
+
 
 
 
 
 
 module.exports = {
-  validateLineup, sortIntoTeams, meetsTeamSizeReqs, meetsSalaryReqs, meetsPositionCountReqs, meetGameCountReqs
+  validateLineup
 }
