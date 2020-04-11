@@ -1,113 +1,62 @@
-//
-// REFERENCE:
-//
-// The 9 required positions: 'OF', 'OF', 'OF', 'P', 'C', '1B', '2B', '3B', 'SS'
-// In a lineup, <= 2 players from the same team
-// ...    and   <= 3 players from the same game
-// Total team salary <= 45000
-//
-//
+const calculateTotalSalary = (lineup) => {
+  return lineup.reduce((totalSalary, player) => {
+    return totalSalary += player.salary
+  })
 
-const meetsSalaryReqs = (players) => {
-  let totalSalary = 0
+  // let totalSalary = 0
 
-  for (let i = 0; i < players.length; i++) {
-    totalSalary += players[i].salary
+  // for (let i = 0; i < players.length; i++) {
+  //   totalSalary += players[i].salary
+  // }
+
+  // return totalSalary <= 45000 <<<------ Due to the nature of "reduce": HANDLED BELOW
+}
+
+const meetsSalaryReqs = (lineup) => {
+  return calculateTotalSalary(lineup) > 45000
+}
+
+const isValidNumberOfTeams = (lineup) => {
+// 2) Lineups may not contain more than 2 players from a single team
+// filter teamIds such that it fails when there are > 2 of the same teamId
+// ...
+  const isSameTeam = lineup.teamId[i] === lineup.teamId[i + 1]
+
+  return lineup.filter(teamId[i])
+  
   }
-
-  return totalSalary <= 45000
-}
-
-class Team {
-  constructor(id, game) {
-    this.id = id
-    this.players = []
-    this.game = game
-  }
-  get playerCount() {
-    return this.players.length
-  }
-  get gameId() {
-    return this.game
-  }
-}
-
-const sortIntoTeams = players => {
-  // Associate teamId to team object
-  const teams = {}
-
-  for (const player of players) {
-    if (!teams[player.teamId]) {
-      teams[player.teamId] = new Team(player.teamId)
-    }
-    teams[player.teamId].players.push(player)
-  }
-
-  // Get plain array of teams
-  return Object.values(teams)
-}
-
-const meetsTeamSizeReqs = players => {
-  const teams = sortIntoTeams(players)
-
-  const failures = teams.filter(team => team.playerCount > 2)
-
-  return failures.length === 0
-}
-
-// const positions = {
-//   'P': 1,
-//   'C': 1,
-//   '1B': 1,
-//   '2B': 1,
-//   '3B': 1,
-//   'SS': 1,
-//   'OF': 3,
-// }
-
-
-const meetsPlayersPerGameReqs = players => {
-
-}
-
-const sortByPosition = players => {
-  const positions = {}
-
-  for (const player of players) {
-    // Create slot if necessary
-    if (!positions[player.position]) {
-      positions[player.position] = []
-    }
-    // Add to slot
-    positions[player.position].push(player)
-  }
-
-  return positions
-}
-
-
-const meetsPositionCountReqs = players => {
-  // Sort players by position
-  // 
-  return false
+  
+  // return lineup.filter(team => player.team[i] === player.team[i + 1])
 }
 
 
 
-const meetGameCountReqs = players => {
-  return false
+
+
+
+
+const isValidNumberOfGames = (lineup) => {
+  // 3) Lineups may not contain more than 3 players from a single game
+}// filter gameIds such that it fails when there are > 2 of the same gameId
+
+
+
+
+
+
+const positionReqs = (lineup) => {
+  // 'OF', 'OF', 'OF', 'P', 'C', '1B', '2B', '3B', 'SS'
+  return 0
 }
 
 
-const validateLineup = (lineup) => meetsSalaryReqs(lineup) &&
-    meetsTeamSizeReqs(lineup) &&
-    meetsPositionCountReqs(lineup) &&
-    meetGameCountReqs(lineup)
 
 
 
-
-
+const validateLineup = (lineup) => meetsSalaryReqs(lineup)
+  && isValidNumberOfTeams
+  && isValidNumberOfGames
+  && positionReqs
 
 module.exports = {
   validateLineup
